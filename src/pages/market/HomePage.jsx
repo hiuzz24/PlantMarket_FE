@@ -3,15 +3,14 @@ import ProductCard from "../../components/market/ProductCard";
 import productApi from "../../configs/ProductApi";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Banner from "../../assets/banner.png"
-import { HouseHeart, Leaf, UserStar } from "lucide-react";
-import ProductDetailModal from "../../components/market/ProductDetailModal";
-import { ToastContainer } from "react-toastify";
+import { HouseHeart, Leaf, Sprout, UserStar } from "lucide-react";
+import ChatBot from "../../components/market/ChatBot";
+import SpringPetals from "../../components/market/SakuraBackground";
 
 export default function HomePage() {
     const [listProduct, setListProduct] = useState([]);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(100);
-    const [modalShow, setModalShow] = useState(false);
     const featureRef = useRef(null);
 
     useEffect(() => {
@@ -29,9 +28,41 @@ export default function HomePage() {
         fetchData();
     }, [page, size]);
 
+    const injectStyles = (
+        <style>
+            {`
+                @keyframes float {
+                    0% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(2deg); }
+                    100% { transform: translateY(0px) rotate(0deg); }
+                }
+                @keyframes flowerFall {
+                    0% { transform: translate(0, -10px) rotate(0deg); opacity: 0; }
+                    10% { opacity: 1; }
+                    90% { opacity: 1; }
+                    100% { transform: translate(100px, 600px) rotate(360deg); opacity: 0; }
+                }
+                .banner-img-animate {
+                    animation: float 5s ease-in-out infinite;
+                }
+                .flower {
+                    position: absolute;
+                    background-color: #ffcce5;
+                    border-radius: 10px 0 10px 0;
+                    pointer-events: none;
+                    animation: flowerFall 8s linear infinite;
+                    z-index: 1;
+                }
+            `}
+        </style>
+    );
+
     return (
-        <>
-            <Container fluid className="w-screen mb-5"
+        <div style={{ overflowX: 'hidden' }}>
+            {injectStyles}
+            <SpringPetals/>
+            <ChatBot />
+            {/* <Container fluid className="w-screen mb-5"
                 style={{
                     backgroundColor: '#bef1d0ff',
                     height: '620px'
@@ -90,13 +121,100 @@ export default function HomePage() {
                         }}></img>
                     </Col>
                 </Row>
+            </Container> */}
+            <Container fluid className="mb-5 position-relative"
+                style={{
+                    backgroundColor: '#bef1d0ff',
+                    height: '650px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0 100px'
+                }}
+            >
+                {/* Các cánh hoa đào rơi tạo không khí Xuân */}
+                {[...Array(10)].map((_, i) => (
+                    <div key={i} className="flower" style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `-${Math.random() * 20}%`,
+                        width: `${Math.random() * 15 + 5}px`,
+                        height: `${Math.random() * 15 + 5}px`,
+                        animationDelay: `${Math.random() * 5}s`,
+                        opacity: 0.6
+                    }} />
+                ))}
+
+                <Row className="w-100 align-items-center">
+                    <Col md={7} className="d-flex flex-column gap-4 text-start">
+                        <div className="d-flex align-items-center gap-2" style={{ color: '#438e70', fontWeight: 'bold' }}>
+                            <Sprout size={24} /> <span>MỪNG XUÂN ẤT TỴ 2025</span>
+                        </div>
+                        <h1 style={{
+                            lineHeight: '80px',
+                            fontWeight: '850',
+                            fontSize: '70px',
+                            color: '#2F3E46',
+                            maxWidth: '800px'
+                        }}>
+                            Khai Xuân Như Ý <br />
+                            <span style={{ color: '#438e70' }}>Gieo Mầm May Mắn</span>
+                        </h1>
+                        <h5 style={{
+                            maxWidth: '550px',
+                            fontFamily: 'Poppins, sans-serif',
+                            color: '#4A5D55',
+                            fontSize: '20px',
+                            lineHeight: '1.6'
+                        }}>
+                            Đón không khí Tết trong lành với bộ sưu tập cây mầm tươi mới. Khởi đầu một năm xanh tươi, an khang và thịnh vượng.
+                        </h5>
+                        <Button className="p-3 rounded-5" style={{
+                            backgroundColor: '#62B895',
+                            width: '240px',
+                            fontSize: '18px',
+                            fontWeight: 'bold',
+                            border: 'none',
+                            boxShadow: '0 10px 20px rgba(98, 184, 149, 0.3)',
+                            transition: 'all 0.4s ease'
+                        }}
+                            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                            onClick={() => featureRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+                        >
+                            Hái Lộc Đầu Năm
+                        </Button>
+                    </Col>
+
+                    <Col md={5} className="d-flex justify-content-center position-relative">
+                        <div style={{
+                            position: 'absolute',
+                            width: '450px',
+                            height: '450px',
+                            backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                            borderRadius: '50%',
+                            filter: 'blur(40px)',
+                            zIndex: 0
+                        }}></div>
+
+                        <img
+                            src={Banner}
+                            className="banner-img-animate"
+                            style={{
+                                width: '400px',
+                                height: 'auto',
+                                zIndex: 2,
+                                filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))'
+                            }}
+                            alt="Spring Kit"
+                        />
+                    </Col>
+                </Row>
             </Container>
             <Container fluid ref={featureRef}>
                 <h1 className="d-flex justify-content-center align-items-center mb-5" style={{
                     color: '#2F3E46',
                     fontWeight: 'bold'
                 }}>
-                    Featured Plant Kits
+                    Sản Phẩm "Lộc Xuân" Nổi Bật
                 </h1>
                 <div >
                     <Row className="justify-content-center">
@@ -115,7 +233,7 @@ export default function HomePage() {
                     color: '#2F3E46',
                     fontWeight: 'bold'
                 }}>
-                    Why Choose PlantKit?
+                    Tại sao chọn PlantKit?
                 </h1>
                 <Row className="d-flex justify-content-center align-items-center">
                     <Col className="d-flex flex-column justify-content-center align-items-center gap-4" md={4}
@@ -140,7 +258,7 @@ export default function HomePage() {
                             <h3 style={{
                                 color: '#2F3E46'
                             }}>
-                                Easy-to-Follow Instructions
+                                Dễ Dàng Chăm Sóc
                             </h3>
                             <h6 style={{
                                 color: '#5c7e68ff',
@@ -148,7 +266,7 @@ export default function HomePage() {
                                 fontSize: '18px',
                                 textAlign: 'center'
                             }}>
-                                Step-by-step guides make growing your plants simple and enjoyable, even for beginners.
+                                Hướng dẫn chi tiết từng bước, giúp cây luôn xanh tươi trong mọi điều kiện.
                             </h6>
                         </div>
 
@@ -175,7 +293,7 @@ export default function HomePage() {
                             <h3 style={{
                                 color: '#2F3E46'
                             }}>
-                                Easy-to-Follow Instructions
+                                Bền Vững & Hữu Cơ
                             </h3>
                             <h6 style={{
                                 color: '#5c7e68ff',
@@ -183,7 +301,7 @@ export default function HomePage() {
                                 fontSize: '18px',
                                 textAlign: 'center'
                             }}>
-                                Step-by-step guides make growing your plants simple and enjoyable, even for beginners.
+                                Chúng tôi sử dụng vật liệu thân thiện với môi trường, an toàn cho sức khỏe.
                             </h6>
                         </div>
                     </Col>
@@ -209,7 +327,7 @@ export default function HomePage() {
                             <h3 style={{
                                 color: '#2F3E46'
                             }}>
-                                Easy-to-Follow Instructions
+                                Hỗ Trợ Tận Tâm
                             </h3>
                             <h6 style={{
                                 color: '#5c7e68ff',
@@ -217,12 +335,12 @@ export default function HomePage() {
                                 fontSize: '18px',
                                 textAlign: 'center'
                             }}>
-                                Step-by-step guides make growing your plants simple and enjoyable, even for beginners.
+                                Đội ngũ chuyên gia luôn sẵn sàng tư vấn kỹ thuật trồng cây 24/7.
                             </h6>
                         </div>
                     </Col>
                 </Row>
             </Container>
-        </>
+        </div>
     )
 }
