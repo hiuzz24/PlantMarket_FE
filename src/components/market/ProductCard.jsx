@@ -62,7 +62,7 @@ export default function ProductCard({ product }) {
                                 width: 'fit-content',
                                 color: '#52796F',
                                 fontWeight: 'bold',
-                                fontSize: '13px',
+                                fontSize: '15px',
                                 zIndex: 10
                             }}>
                             {product.isBestSeller ? "★ Best Seller" : "🌿 Organize"}
@@ -73,7 +73,7 @@ export default function ProductCard({ product }) {
                                 backgroundColor: '#87A28E',
                                 color: 'white',
                                 fontWeight: 'bold',
-                                fontSize: '13px',
+                                fontSize: '15px',
                                 zIndex: 10
                             }}>
                             {product.stockQuantity > 0 ? "✓ In Stock" : "X Out Stock"}

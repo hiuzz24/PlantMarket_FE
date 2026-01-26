@@ -170,7 +170,7 @@ export default function CheckOut() {
                                     className="w-100 py-3 fw-bold rounded-pill border-0 shadow-sm"
                                     style={{ backgroundColor: '#62B895', fontSize: '1.3rem' }}
                                 >
-                                    Comple Order
+                                    Complete Order
                                 </Button>
                             </Card>
                         </Col>

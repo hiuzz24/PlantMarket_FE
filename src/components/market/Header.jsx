@@ -53,7 +53,7 @@ export default function Header() {
                 <Navbar.Collapse id='basic-navbar-nav'>
                     <Nav className='ms-auto d-flex align-items-center gap-4 me-5'>
                         <Nav.Link href='/ShopKit' style={{ color: '#52796f', fontWeight: '500' }}>Shop Kits</Nav.Link>
-                        <Nav.Link href='/About' style={{ color: '#52796f', fontWeight: '500' }}>About</Nav.Link>
+                        <Nav.Link href='/AboutPage' style={{ color: '#52796f', fontWeight: '500' }}>About</Nav.Link>
                         <Nav.Link href='/Community' style={{ color: '#52796f', fontWeight: '500' }}>Community</Nav.Link>
                         <Nav.Link href='/Support' style={{ color: '#52796f', fontWeight: '500' }}>Support</Nav.Link>
                         <Nav.Link href='/cart' style={{ color: '#52796f', fontWeight: '500' }}>

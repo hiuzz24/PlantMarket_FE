@@ -5,7 +5,6 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import Banner from "../../assets/banner.png"
 import { HouseHeart, Leaf, Sprout, UserStar } from "lucide-react";
 import ChatBot from "../../components/market/ChatBot";
-import SpringPetals from "../../components/market/SakuraBackground";
 
 export default function HomePage() {
     const [listProduct, setListProduct] = useState([]);
@@ -58,9 +57,8 @@ export default function HomePage() {
     );
 
     return (
-        <div style={{ overflowX: 'hidden' }}>
+        <div style={{ overflowX: 'hidden'}}>
             {injectStyles}
-            <SpringPetals/>
             <ChatBot />
             {/* <Container fluid className="w-screen mb-5"
                 style={{

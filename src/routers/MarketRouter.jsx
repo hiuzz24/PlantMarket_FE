@@ -6,6 +6,7 @@ import ShopKit from "../pages/market/ShopKit";
 import SuccessPage from "../pages/market/SuccesPage";
 import CancelPage from "../pages/market/CancelPage";
 import PrivateRouter from "./PrivateRouter";
+import AboutPage from "../pages/market/AboutPage";
 
 
 const marketRouter = [
@@ -42,6 +43,10 @@ const marketRouter = [
     {
         path: '/cancel',
         element: <CancelPage/>
+    },
+    {
+        path: '/AboutPage',
+        element: <AboutPage/>
     }
 
 

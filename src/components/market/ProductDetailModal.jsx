@@ -72,12 +72,12 @@ export default function ProductDetailModal({ show, onHide, product }) {
                         <Col md={6} className="ps-md-5 d-flex flex-column gap-3">
                             <div className="d-flex gap-2">
                                 {product.isBestSeller && (
-                                    <Badge pill bg="warning" text="dark" className="px-3 py-2" style={{ fontSize: '12px' }}>
+                                    <Badge pill bg="warning" text="dark" className="px-3 py-2" style={{ fontSize: '14px' }}>
                                         ⭐ Best Seller
                                     </Badge>
                                 )}
                                 <Badge pill bg="" className="px-3 py-2"
-                                    style={{ fontSize: '12px', backgroundColor: '#e3f3e9ff', color: '#2f855a' }}>
+                                    style={{ fontSize: '14px', backgroundColor: '#e3f3e9ff', color: '#2f855a' }}>
                                     🌿 Difficulty: {product.difficultyLevel}
                                 </Badge>
                             </div>
