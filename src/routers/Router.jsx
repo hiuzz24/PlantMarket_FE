@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import authRoutes from "./authRouter";
+import authRoutes from "./AuthRouter";
 import marketRouter from "./MarketRouter";
 import adminRouter from "./AdminRouter";
 import failRouter from "./FailRouter"
