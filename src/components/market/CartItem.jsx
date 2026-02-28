@@ -8,9 +8,9 @@ export default function CartItem({ item, onUpdateQuantity, onRemove }) {
                 <Col md={2} className="text-center">
                     <div className="rounded-4 p-2" style={{ backgroundColor: '#F8FAF6' }}>
                         <img
-                            src={`http://localhost:8080${item.imageUrl}`}
+                            src={`${item.imageUrl}`}
                             alt={item.name}
-                            style={{ width: '60px', height: '60px', objectFit: 'contain' }}
+                            style={{ width: '100px', height: '100px', objectFit: 'contain',borderRadius: '30px' }}
                         />
                     </div>
                 </Col>

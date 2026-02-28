@@ -2,12 +2,13 @@ import Sider from "antd/es/layout/Sider";
 import { Nav, Navbar } from "react-bootstrap";
 import logo from "../../assets/logo.png"
 import { BaggageClaim, LayoutDashboard, LayoutList, Settings } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function AdminSiderbar() {
+    const navigate = useNavigate();
     return (
         <div className="d-flex flex-column justify-content-center align-items-center">
-            <div className="d-flex py-4 border-bottom">
+            <div className="d-flex py-4 border-bottom" onClick={() => navigate('/HomePage')} style={{cursor: 'pointer'}}>
                 <img src={logo}
                     style={{
                         width: '60px',
@@ -22,7 +23,7 @@ export default function AdminSiderbar() {
             <div className="mt-3">
                 <Navbar expand="lg" >
                     <Nav className="d-flex flex-column gap-4">
-                        <Nav.Link as={NavLink} to="/dashboard"
+                        <Nav.Link as={NavLink} to="/admin/dashboard"
                          className="d-flex align-items-center" style={{fontSize: '23px',fontWeight: 'bolder'}}>
                             <LayoutDashboard size={25} className="me-3"/>
                             Dashboard
@@ -32,12 +33,12 @@ export default function AdminSiderbar() {
                             <LayoutList size={25} className="me-3"/>
                             Manage Product
                         </Nav.Link>
-                        <Nav.Link as={NavLink} to="/orders"
+                        <Nav.Link as={NavLink} to="/admin/orders"
                         className="d-flex align-items-center" style={{fontSize: '23px',fontWeight: 'bolder'}}>
                             <BaggageClaim size={25} className="me-3"/>
                             Orders
                         </Nav.Link>
-                        <Nav.Link as={NavLink} to="/setting"
+                        <Nav.Link as={NavLink} to="/admin/setting"
                         className="d-flex align-items-center" style={{fontSize: '23px',fontWeight: 'bolder'}}>
                             <Settings size={25} className="me-3"/>
                             Setting

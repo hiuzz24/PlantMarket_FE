@@ -32,6 +32,7 @@ export default function ProductCard({ product }) {
         try {
             const res = await cartApi.addToCart(dataSend);
             toast.success(res.message);
+            window.dispatchEvent(new Event("cartUpdated"));
         } catch (error) {
             console.log(error);
             toast.error(error.response?.message || 'error when add to cart');
@@ -41,9 +42,10 @@ export default function ProductCard({ product }) {
 
     return (
         <>
-            <Card className="rounded-5 m-3" style={{
-                transition: 'all 0.3s ease'
-            }}
+            <Card className="rounded-5 m-3 h-100 d-flex flex-column"
+                style={{
+                    transition: 'all 0.3s ease'
+                }}
                 onMouseEnter={e => {
                     e.currentTarget.style.transform = 'scale(1.05)';
                     e.currentTarget.style.boxShadow = '0px 8px 20px rgba(0,0,0,0.2)';
@@ -79,7 +81,25 @@ export default function ProductCard({ product }) {
                             {product.stockQuantity > 0 ? "✓ In Stock" : "X Out Stock"}
                         </Badge>
                     </div>
-                    <Card.Img src={`http://localhost:8080${product.imageUrl}`} alt={product.name} />
+                    <div style={{
+                        height: '400px',
+                        width: '100%',
+                        overflow: 'hidden',
+                        borderRadius: 'inherit' // Để bo góc theo Card.Body nếu cần
+                    }}>
+                        <Card.Img
+                            src={`${product.imageUrl}`}
+                            alt={product.name}
+                            style={{
+                                width: '100%',
+                                height: '100%',     // Chiếm hết 400px của div bao ngoài
+                                objectFit: 'cover',  // Cắt ảnh thừa, không làm méo ảnh
+                                objectPosition: 'center',
+                                display: 'block'
+                            }}
+                        />
+                    </div>
+
                 </Card.Body>
                 <Card.Body className="rounded-bottom-5 mt-3" style={{ backgroundColor: 'white' }}>
                     <Card.Title

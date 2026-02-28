@@ -57,69 +57,9 @@ export default function HomePage() {
     );
 
     return (
-        <div style={{ overflowX: 'hidden'}}>
+        <div style={{ overflowX: 'hidden' }}>
             {injectStyles}
             <ChatBot />
-            {/* <Container fluid className="w-screen mb-5"
-                style={{
-                    backgroundColor: '#bef1d0ff',
-                    height: '620px'
-                }}
-            >
-                <Row className="d-flex justify-content-between align-items-center" style={{ padding: '120px' }}>
-                    <Col md={7} className="d-flex flex-column gap-5">
-                        <h1 style={{
-                            width: '800px',
-                            lineHeight: '65px',
-                            fontWeight: 'bold',
-                            fontSize: '75px',
-                            color: '#2F3E46'
-                        }}>
-                            Grow Fresh Herbs at Home
-                        </h1>
-                        <h5 style={{
-                            width: '600px',
-                            fontFamily: 'Poppins, sans-serif',
-                            color: '#2F3E46',
-                            fontSize: '23px'
-                        }}>
-                            Discover our curated collection of easy-to-grow plant kits. Perfect for beginners and seasoned gardeners alike.
-                        </h5>
-                        <Button className="p-3 rounded-5" style={{
-                            backgroundColor: '#62B895',
-                            width: '220px',
-                            height: 'fit-content',
-                            fontSize: '20px',
-                            fontWeight: 'bold',
-                            border: 'none',
-                            transition: 'all 0.6s ease'
-                        }}
-                            onMouseEnter={e => {
-                                e.currentTarget.style.transform = 'translateY(-5px)';
-                                e.currentTarget.style.boxShadow = '0px 2px 15px rgba(0,0,0,0.3)';
-                            }}
-                            onMouseLeave={e => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = 'none';
-                            }}
-                            onClick={() => {
-                                featureRef.current?.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'center'
-                                });
-                            }}
-                        >
-                            Shop Best Seller
-                        </Button>
-                    </Col>
-                    <Col md={5}>
-                        <img src={Banner} style={{
-                            width: '350px',
-                            height: '480px'
-                        }}></img>
-                    </Col>
-                </Row>
-            </Container> */}
             <Container fluid className="mb-5 position-relative"
                 style={{
                     backgroundColor: '#bef1d0ff',
@@ -143,66 +83,98 @@ export default function HomePage() {
 
                 <Row className="w-100 align-items-center">
                     <Col md={7} className="d-flex flex-column gap-4 text-start">
-                        <div className="d-flex align-items-center gap-2" style={{ color: '#438e70', fontWeight: 'bold' }}>
-                            <Sprout size={24} /> <span>MỪNG XUÂN ẤT TỴ 2025</span>
+                        {/* Badge thông điệp mới */}
+                        <div className="d-flex align-items-center gap-2"
+                            style={{
+                                color: '#438e70',
+                                fontWeight: '600',
+                                letterSpacing: '1px',
+                                fontSize: '14px'
+                            }}>
+                            <Leaf size={20} /> <span>HÀNH TRÌNH SỐNG XANH</span>
                         </div>
+
                         <h1 style={{
-                            lineHeight: '80px',
-                            fontWeight: '850',
-                            fontSize: '70px',
+                            lineHeight: '1.2',
+                            fontWeight: '800',
+                            fontSize: '64px',
                             color: '#2F3E46',
-                            maxWidth: '800px'
+                            maxWidth: '750px',
+                            fontFamily: "'Playfair Display', serif"
                         }}>
-                            Khai Xuân Như Ý <br />
-                            <span style={{ color: '#438e70' }}>Gieo Mầm May Mắn</span>
+                            Gieo Mầm Nhỏ <br />
+                            <span style={{ color: '#62B895' }}>Nở Tương Lai Xanh</span>
                         </h1>
-                        <h5 style={{
-                            maxWidth: '550px',
-                            fontFamily: 'Poppins, sans-serif',
-                            color: '#4A5D55',
-                            fontSize: '20px',
-                            lineHeight: '1.6'
-                        }}>
-                            Đón không khí Tết trong lành với bộ sưu tập cây mầm tươi mới. Khởi đầu một năm xanh tươi, an khang và thịnh vượng.
-                        </h5>
+
+                        {/* Đoạn mô tả giải thích lý do chọn Mộc Mơ */}
+                        <div style={{ maxWidth: '580px' }}>
+                            <h5 style={{
+                                fontFamily: "'Quicksand', sans-serif",
+                                color: '#4A5D55',
+                                fontSize: '19px',
+                                lineHeight: '1.8',
+                                marginBottom: '15px'
+                            }}>
+                                Mộc Mơ tin rằng sống xanh không cần sự hoàn hảo hay không gian rộng lớn.
+                                Chỉ cần một trải nghiệm đủ <strong>nhẹ nhàng</strong> để ai cũng có thể bắt đầu.
+                            </h5>
+                            <p style={{ color: '#7A8B83', fontSize: '16px', fontStyle: 'italic' }}>
+                                "Từ một hạt giống nhỏ, tình yêu thiên nhiên sẽ lớn dần lên một cách tự nhiên."
+                            </p>
+                        </div>
+
+                        {/* Nút bấm chuyển sang hành động khám phá */}
                         <Button className="p-3 rounded-5" style={{
                             backgroundColor: '#62B895',
-                            width: '240px',
-                            fontSize: '18px',
-                            fontWeight: 'bold',
+                            width: '260px',
+                            fontSize: '17px',
+                            fontWeight: '700',
                             border: 'none',
-                            boxShadow: '0 10px 20px rgba(98, 184, 149, 0.3)',
-                            transition: 'all 0.4s ease'
+                            boxShadow: '0 10px 25px rgba(98, 184, 149, 0.25)',
+                            transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '10px'
                         }}
-                            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-5px)';
+                                e.currentTarget.style.backgroundColor = '#438e70';
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.backgroundColor = '#62B895';
+                            }}
                             onClick={() => featureRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
                         >
-                            Hái Lộc Đầu Năm
+                            Bắt đầu ngay <Sprout size={20} />
                         </Button>
                     </Col>
 
                     <Col md={5} className="d-flex justify-content-center position-relative">
+                        {/* Hiệu ứng đổ bóng mờ ảo cho Banner thêm thanh thoát */}
                         <div style={{
                             position: 'absolute',
-                            width: '450px',
-                            height: '450px',
-                            backgroundColor: 'rgba(255, 255, 255, 0.4)',
-                            borderRadius: '50%',
-                            filter: 'blur(40px)',
-                            zIndex: 0
+                            width: '400px',
+                            height: '400px',
+                            backgroundColor: 'rgba(98, 184, 149, 0.15)',
+                            borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%', // Hình khối hữu cơ (Blob)
+                            filter: 'blur(50px)',
+                            zIndex: 0,
+                            animation: 'blob-animate 10s infinite alternate'
                         }}></div>
 
                         <img
                             src={Banner}
                             className="banner-img-animate"
                             style={{
-                                width: '400px',
+                                width: '100%',
+                                maxWidth: '450px',
                                 height: 'auto',
                                 zIndex: 2,
-                                filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))'
+                                filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.08))'
                             }}
-                            alt="Spring Kit"
+                            alt="Mộc Mơ Kit"
                         />
                     </Col>
                 </Row>

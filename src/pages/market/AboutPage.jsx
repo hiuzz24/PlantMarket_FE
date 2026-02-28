@@ -1,4 +1,7 @@
-import React from "react";
+import { useNavigate } from 'react-router-dom';
+import LogoImage from '../../assets/logo3.png';
+import { Heart, Leaf, Users, Sprout, BookOpen, MessageCircle, Star } from 'lucide-react';
+
 
 const AboutPage = () => {
   const config = {
@@ -8,9 +11,10 @@ const AboutPage = () => {
     accent: "#4a7c59",
   };
 
+  const navigate = useNavigate();
+
   return (
     <div style={{ fontFamily: "'Quicksand', sans-serif" }}>
-      {/* ================= HERO ================= */}
       <section
         style={{
           background:
@@ -21,7 +25,6 @@ const AboutPage = () => {
         }}
       >
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
-          {/* Left */}
           <div>
             <span
               style={{
@@ -57,13 +60,8 @@ const AboutPage = () => {
             </p>
           </div>
 
-          {/* Right Illustration */}
           <div style={{ textAlign: "center" }}>
-            <img
-              src="/plant-hero.svg"
-              alt="Plant"
-              style={{ maxWidth: 380, width: "100%" }}
-            />
+            <img src={LogoImage} alt='Mộc Mơ' style={{ height: '300px', marginLeft: '1rem', borderRadius: '10px' }} />
           </div>
         </div>
       </section>
@@ -102,18 +100,18 @@ const AboutPage = () => {
             {[
               {
                 title: "Gieo Mầm Hạnh Phúc",
-                text:
-                  "Mỗi chậu cây mang theo niềm vui, giúp giảm stress và cân bằng cuộc sống.",
+                text: "Mỗi chậu cây mang theo niềm vui, giúp giảm stress và cân bằng cuộc sống.",
+                icon: <Heart size={32} color={config.dark} />,
               },
               {
                 title: "Bền Vững Xanh",
-                text:
-                  "Bao bì thân thiện môi trường, nguồn cây giống và quy trình bền vững.",
+                text: "Bao bì thân thiện môi trường, nguồn cây giống và quy trình bền vững.",
+                icon: <Leaf size={32} color={config.dark} />,
               },
               {
                 title: "Kết Nối Tự Nhiên",
-                text:
-                  "Giúp bạn tạo nên góc xanh thư giãn và kết nối lại với thiên nhiên.",
+                text: "Giúp bạn tạo nên góc xanh thư giãn và kết nối lại với thiên nhiên.",
+                icon: <Users size={32} color={config.dark} />,
               },
             ].map((item, i) => (
               <div
@@ -124,7 +122,10 @@ const AboutPage = () => {
                   borderRadius: 24,
                   textAlign: "center",
                   border: `2px solid ${config.secondary}`,
+                  transition: "transform 0.3s ease",
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-10px)"}
+                onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
               >
                 <div
                   style={{
@@ -133,8 +134,13 @@ const AboutPage = () => {
                     borderRadius: "50%",
                     background: config.secondary,
                     margin: "0 auto 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
-                />
+                >
+                  {item.icon}
+                </div>
                 <h3 style={{ fontSize: 20, fontWeight: 700, color: config.dark }}>
                   {item.title}
                 </h3>
@@ -147,7 +153,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* ================= TEAM ================= */}
+      {/* ================= TEAM (Đã căn chỉnh 3 thành viên/hàng) ================= */}
       <section style={{ padding: "96px 24px", background: "#ffffff" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: config.dark }}>
@@ -158,68 +164,178 @@ const AboutPage = () => {
             style={{
               marginTop: 64,
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))",
-              gap: 48,
+              // Chỉnh thành 3 cột cố định trên màn hình lớn để 6 người chia đều 2 hàng
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "64px 32px", // Tăng khoảng cách hàng
             }}
           >
             {[
-              { name: "Minh Anh", role: "Founder & CEO" },
-              { name: "Hoàng Long", role: "Head of Operations" },
-              { name: "Thu Hà", role: "Plant Expert" },
-              { name: "Đức Phong", role: "Customer Care" },
+              { name: "Nhi", role: "Founder & CEO" },
+              { name: "Hà", role: "Head of Operations" },
+              { name: "Hải", role: "Plant Expert" },
+              { name: "Hiếu", role: "Customer Care" },
+              { name: "Đức Anh", role: "Customer Care" },
+              { name: "Đạt", role: "Customer Care" },
             ].map((m, i) => (
-              <div key={i}>
+              <div key={i} style={{ transition: "all 0.3s" }}>
                 <div
                   style={{
-                    width: 120,
-                    height: 120,
+                    width: 140, // Tăng kích thước avatar một chút cho thoáng
+                    height: 140,
                     borderRadius: "50%",
-                    background: config.secondary,
-                    margin: "0 auto 16px",
+                    background: `linear-gradient(135deg, ${config.secondary} 0%, #ffffff 100%)`,
+                    margin: "0 auto 20px",
+                    border: `3px solid ${config.secondary}`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "40px"
                   }}
-                />
-                <h4 style={{ fontWeight: 700, color: config.dark }}>
+                >
+                  {/* Có thể thay bằng hình ảnh thật sau này */}
+                  👤
+                </div>
+                <h4 style={{ fontWeight: 700, color: config.dark, marginBottom: 8 }}>
                   {m.name}
                 </h4>
-                <p style={{ fontSize: 14, color: config.accent }}>
+                <div style={{
+                  display: "inline-block",
+                  padding: "4px 12px",
+                  borderRadius: "20px",
+                  background: "rgba(98,184,149,0.1)",
+                  fontSize: 13,
+                  color: config.primary,
+                  fontWeight: 600
+                }}>
                   {m.role}
-                </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ================= BENEFITS ================= */}
-      <section style={{ padding: "96px 24px", background: "#f7fff9" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontSize: 36, fontWeight: 700, color: config.dark }}>
-            Hơn cả một chậu cây, đó là một lối sống
+      {/* ================= BENEFITS (Bản Sáng Tạo & Đồng Bộ) ================= */}
+      <section style={{ padding: "100px 24px", background: "#ffffff" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
+
+          <h2 style={{
+            fontSize: 40,
+            fontWeight: 700,
+            color: config.dark,
+            marginBottom: 64,
+            fontFamily: "'Quicksand', sans-serif" // Trả về font đồng bộ
+          }}>
+            Hơn cả một chậu cây, đó là <span style={{ color: config.primary }}>lối sống xanh</span>
           </h2>
 
           <div
             style={{
-              marginTop: 48,
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
-              gap: 24,
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: 30,
             }}
           >
             {[
-              "Sản phẩm chất lượng cao",
-              "Hướng dẫn chi tiết",
-              "Hỗ trợ tận tâm",
-              "Cộng đồng xanh",
-            ].map((t, i) => (
+              {
+                t: "Sản phẩm chất lượng",
+                d: "Tuyển chọn kỹ càng từng mầm xanh khỏe mạnh từ vườn ươm.",
+                icon: <Star size={26} />,
+                blob: "30% 70% 70% 30% / 30% 30% 70% 70%" // Hình dáng hữu cơ 1
+              },
+              {
+                t: "Hướng dẫn chi tiết",
+                d: "Cẩm nang chăm sóc từ A-Z, giúp bạn trở thành chuyên gia.",
+                icon: <BookOpen size={26} />,
+                blob: "50% 50% 33% 67% / 55% 27% 73% 45%" // Hình dáng hữu cơ 2
+              },
+              {
+                t: "Hỗ trợ tận tâm",
+                d: "Luôn đồng hành cùng bạn trong suốt quá trình cây trưởng thành.",
+                icon: <MessageCircle size={26} />,
+                blob: "30% 70% 37% 63% / 54% 30% 70% 46%" // Hình dáng hữu cơ 3
+              },
+              {
+                t: "Cộng đồng xanh",
+                d: "Kết nối và chia sẻ niềm đam mê cùng những người yêu thiên nhiên.",
+                icon: <Sprout size={26} />,
+                blob: "67% 33% 47% 53% / 37% 58% 42% 63%" // Hình dáng hữu cơ 4
+              },
+            ].map((item, i) => (
               <div
                 key={i}
                 style={{
-                  background: "#eefdf4",
-                  padding: 32,
-                  borderRadius: 20,
+                  background: "white",
+                  padding: "40px 30px",
+                  borderRadius: "30px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  textAlign: "center",
+                  border: `1.5px solid #f0f7f4`,
+                  boxShadow: "0 15px 35px rgba(82, 121, 111, 0.04)",
+                  transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                  cursor: "pointer",
+                  position: "relative",
+                  overflow: "hidden"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-12px)";
+                  e.currentTarget.style.borderColor = config.primary;
+                  e.currentTarget.style.boxShadow = `0 20px 40px rgba(98, 184, 149, 0.15)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.borderColor = "#f0f7f4";
+                  e.currentTarget.style.boxShadow = "0 15px 35px rgba(82, 121, 111, 0.04)";
                 }}
               >
-                <p style={{ fontWeight: 500, color: config.dark }}>{t}</p>
+                {/* Vòng tròn Icon Sáng tạo với hình dáng hữu cơ (Blob) */}
+                <div style={{
+                  width: 70,
+                  height: 70,
+                  borderRadius: item.blob, // Tạo hình dáng không đều
+                  background: config.secondary,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: config.dark,
+                  marginBottom: 24,
+                  transition: "all 0.5s ease",
+                }}>
+                  {item.icon}
+                </div>
+
+                <h3 style={{
+                  fontSize: 20,
+                  fontWeight: 700,
+                  color: config.dark,
+                  marginBottom: 12,
+                  fontFamily: "'Quicksand', sans-serif"
+                }}>
+                  {item.t}
+                </h3>
+
+                <p style={{
+                  fontSize: 15,
+                  color: config.accent,
+                  lineHeight: 1.6,
+                  margin: 0
+                }}>
+                  {item.d}
+                </p>
+
+                {/* Trang trí nhỏ ở góc thẻ */}
+                <div style={{
+                  position: "absolute",
+                  bottom: -10,
+                  right: -10,
+                  opacity: 0.1,
+                  color: config.primary,
+                  transform: "rotate(-15deg)"
+                }}>
+                  <Leaf size={60} fill="currentColor" />
+                </div>
               </div>
             ))}
           </div>
@@ -253,6 +369,7 @@ const AboutPage = () => {
               border: "none",
               fontWeight: 600,
             }}
+            onClick={() => navigate('/HomePage')}
           >
             🌱 Khám phá ngay
           </button>
@@ -265,6 +382,7 @@ const AboutPage = () => {
               border: "2px solid #fff",
               fontWeight: 600,
             }}
+            onClick={() => window.open('https://www.facebook.com/profile.php?id=61586796640505')}
           >
             💬 Liên hệ với chúng tôi
           </button>

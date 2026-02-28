@@ -13,6 +13,7 @@
     "@chatscope/chat-ui-kit-react": "^2.1.1",
     "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@hookform/resolvers": "^5.2.2",
+    "@react-oauth/google": "^0.13.4",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
     "antd": "^6.1.0",
@@ -26,13 +27,13 @@
     "react-bootstrap": "^2.10.10",
     "react-chatbotify": "^2.5.0",
     "react-dom": "^19.2.0",
-    "react-hook-form": "^7.69.0",
+    "react-hook-form": "^7.71.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.6",
     "react-toastify": "^11.0.5",
     "react-tsparticles": "^2.12.2",
     "tsparticles": "^3.9.1",
-    "zod": "^4.3.4"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
