@@ -8,8 +8,6 @@ import cartApi from "../../configs/CartApi";
 import orderApi from "../../configs/OrderApi";
 import { useNavigate } from "react-router-dom";
 
-
-
 export default function CheckOut() {
     const [cart, setCart] = useState(null);
     const SHIPPING_FEE = 30000;
@@ -19,17 +17,17 @@ export default function CheckOut() {
 
     const checkoutSchema = z.object({
         fullName: z.string()
-            .min(1, { message: 'Please input full name' }),
+            .min(1, { message: 'Vui lòng nhập họ và tên' }),
         phoneNumber: z.string()
-            .min(1, { message: 'Please input phone number' })
-            .length(10, { message: 'Phone number must be exactly 10 digits' })
-            .regex(/^[0-9]+$/, { message: 'Phone only contain number' }),
+            .min(1, { message: 'Vui lòng nhập số điện thoại' })
+            .length(10, { message: 'Số điện thoại phải có đúng 10 chữ số' })
+            .regex(/^[0-9]+$/, { message: 'Số điện thoại chỉ được chứa chữ số' }),
         emailAddress: z.string()
-            .email({ message: 'Please input true form of email' })
+            .email({ message: 'Định dạng email không hợp lệ' })
             .optional()
             .or(z.literal('')),
         shippingAddress: z.string()
-            .min(1, { message: 'Please input address' }),
+            .min(1, { message: 'Vui lòng nhập địa chỉ nhận hàng' }),
         paymentMethod: z.enum(["COD", "PAYOS"]),
         notes: z.string().optional()
     })
@@ -44,10 +42,9 @@ export default function CheckOut() {
     const fetchData = async () => {
         try {
             const res = await cartApi.getCartByUser();
-            console.log(res);
             setCart(res);
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Error fetching cart';
+            const errorMessage = error.response?.data?.message || 'Lỗi khi tải giỏ hàng';
             toast.error(errorMessage);
         }
     }
@@ -64,10 +61,10 @@ export default function CheckOut() {
                 window.location.href = res.paymentUrl
             } else {
                 navigate('/HomePage');
-                toast.success("Order Successful!");
+                toast.success("Đặt hàng thành công!");
             }
         } catch (error) {
-            toast.error(error.response?.message || "Something went wrong");
+            toast.error(error.response?.data?.message || "Đã có lỗi xảy ra");
         }
     }
 
@@ -75,120 +72,140 @@ export default function CheckOut() {
         <div style={{ backgroundColor: '#e7efecff', minHeight: '100vh', paddingBottom: '50px' }}>
             <Container fluid="xl" className="py-5">
                 <div className="text-center mb-5">
-                    <h1 className="fw-bold" style={{ fontSize: '3.5rem', color: '#2F3E46' }}>Checkout</h1>
-                    <p style={{ color: '#2f855aff', fontSize: '1.2rem' }}>Complete your order and bring nature home</p>
+                    <h1 className="fw-bold" style={{ fontSize: '3.5rem', color: '#2F3E46' }}>Thanh toán</h1>
+                    <p style={{ color: '#2f855aff', fontSize: '1.2rem' }}>Hoàn tất đơn hàng và mang thiên nhiên về nhà</p>
                 </div>
 
                 <Form onSubmit={handleSubmit(onPlaceOrder)}>
                     <Row>
                         <Col md={7}>
                             <Card className="border-0 rounded-5 shadow-sm p-4 ">
-                                <h2 className="mb-4">Shipping Information</h2>
+                                <h2 className="mb-4">Thông tin giao hàng</h2>
                                 <Form.Group className="mb-4">
-                                    <Form.Label className="fw-semibold">Full Name *</Form.Label>
+                                    <Form.Label className="fw-semibold">Họ và tên *</Form.Label>
                                     <Form.Control
                                         {...register("fullName")}
                                         isInvalid={!!errors.fullName}
-                                        placeholder="Input your full name"
+                                        placeholder="Nhập họ và tên của bạn"
                                         className="py-3 rounded-4 border-0 bg-light"
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.fullName?.message}</Form.Control.Feedback>
                                 </Form.Group>
+
                                 <Form.Group className="mb-4">
-                                    <Form.Label className="fw-semibold">Phone Number *</Form.Label>
+                                    <Form.Label className="fw-semibold">Số điện thoại *</Form.Label>
                                     <Form.Control
                                         {...register("phoneNumber")}
                                         isInvalid={!!errors.phoneNumber}
-                                        placeholder="Input your phone number"
+                                        placeholder="Nhập số điện thoại"
                                         className="py-3 rounded-4 border-0 bg-light"
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.phoneNumber?.message}</Form.Control.Feedback>
                                 </Form.Group>
+
                                 <Form.Group className="mb-4">
-                                    <Form.Label className="fw-semibold">Email Address</Form.Label>
+                                    <Form.Label className="fw-semibold">Địa chỉ Email</Form.Label>
                                     <Form.Control
                                         {...register("emailAddress")}
                                         isInvalid={!!errors.emailAddress}
-                                        placeholder="Input your email"
+                                        placeholder="Nhập email (không bắt buộc)"
                                         className="border-0 rounded-4 py-3 bg-light"
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.emailAddress?.message}</Form.Control.Feedback>
                                 </Form.Group>
+
                                 <Form.Group className="mb-4">
-                                    <Form.Label className="fw-semibold">Delivery Address *</Form.Label>
+                                    <Form.Label className="fw-semibold">Địa chỉ nhận hàng *</Form.Label>
                                     <Form.Control
                                         {...register("shippingAddress")}
                                         isInvalid={!!errors.shippingAddress}
-                                        placeholder="Input your delivery address"
+                                        placeholder="Số nhà, tên đường, phường/xã..."
                                         as={"textarea"} rows={3}
                                         className="border-0 rounded-4 py-3 bg-light"
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.shippingAddress?.message}</Form.Control.Feedback>
                                 </Form.Group>
-                                <div className="fw-semibold mb-2">Payment Method *</div>
-                                {/* VNPAY */}
+
+                                <div className="fw-semibold mb-2">Phương thức thanh toán *</div>
+
+                                {/* PAYOS */}
                                 <div
-                                    className={`d-flex align-items-center p-4 mb-3 border-2 rounded-4 cursor-pointer transition-all ${selectedPayment === 'PAYOS' ? 'border-success bg-light-success' : 'border-light bg-white'}`}
+                                    className={`d-flex align-items-center p-4 mb-3 border-2 rounded-4 transition-all ${selectedPayment === 'PAYOS' ? 'border-success bg-light-success' : 'border-light bg-white'}`}
                                     onClick={() => setValue("paymentMethod", "PAYOS")}
                                     style={{ cursor: 'pointer', border: '2px solid' }}
                                 >
                                     <div className="bg-light p-3 rounded-3 me-3" style={{ fontSize: '1.5rem' }}>💳</div>
                                     <div className="flex-grow-1">
-                                        <div className="fw-bold fs-5">PAYOS Gateway</div>
-                                        <small className="text-muted">Payment via QR code, domestic or international card.</small>
+                                        <div className="fw-bold fs-5">Cổng thanh toán PAYOS</div>
+                                        <small className="text-muted">Thanh toán qua mã QR, thẻ nội địa hoặc quốc tế.</small>
                                     </div>
                                     <Form.Check type="radio" checked={selectedPayment === 'PAYOS'} readOnly />
                                 </div>
+
                                 {/* COD */}
                                 <div
-                                    className={`d-flex align-items-center p-4 mb-4 border-2 rounded-4 cursor-pointer transition-all ${selectedPayment === 'COD' ? 'border-success bg-light-success' : 'border-light bg-white'}`}
+                                    className={`d-flex align-items-center p-4 mb-4 border-2 rounded-4 transition-all ${selectedPayment === 'COD' ? 'border-success bg-light-success' : 'border-light bg-white'}`}
                                     onClick={() => setValue("paymentMethod", "COD")}
                                     style={{ cursor: 'pointer', border: '2px solid' }}
                                 >
                                     <div className="bg-light p-3 rounded-3 me-3" style={{ fontSize: '1.5rem' }}>🧧</div>
                                     <div className="flex-grow-1">
-                                        <div className="fw-bold fs-5">Payment upon delivery (COD)</div>
-                                        <small className="text-muted">Inspect the goods before payment.</small>
+                                        <div className="fw-bold fs-5">Thanh toán khi nhận hàng (COD)</div>
+                                        <small className="text-muted">Kiểm tra hàng trước khi thanh toán.</small>
                                     </div>
                                     <Form.Check type="radio" checked={selectedPayment === 'COD'} readOnly />
                                 </div>
+
                                 <Form.Group className="mb-4">
-                                    <Form.Label className="fw-semibold">Notes</Form.Label>
+                                    <Form.Label className="fw-semibold">Ghi chú</Form.Label>
                                     <Form.Control
                                         {...register("notes")}
                                         isInvalid={!!errors.notes}
-                                        placeholder="Input your notes"
+                                        placeholder="Lời nhắn cho cửa hàng..."
                                         as={"textarea"} rows={2}
                                         className="border-0 rounded-4 py-3 bg-light"
                                     />
-                                    <Form.Control.Feedback type="invalid">${errors.notes?.message}</Form.Control.Feedback>
+                                    <Form.Control.Feedback type="invalid">{errors.notes?.message}</Form.Control.Feedback>
                                 </Form.Group>
 
-                                <Button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="w-100 py-3 fw-bold rounded-pill border-0 shadow-sm"
-                                    style={{ backgroundColor: '#62B895', fontSize: '1.3rem' }}
-                                >
-                                    Complete Order
-                                </Button>
+                                <div className="d-flex gap-3 mt-4">
+                                    <Button
+                                        type="button"
+                                        variant="light"
+                                        onClick={() => navigate('/cart')}
+                                        className="w-50 py-3 fw-bold rounded-pill border-0"
+                                        style={{ backgroundColor: '#f1f3f5', color: '#6c757d' }}
+                                    >
+                                        Hủy đơn
+                                    </Button>
+
+                                    <Button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="w-50 py-3 fw-bold rounded-pill border-0 shadow-sm text-white"
+                                        style={{ backgroundColor: '#62B895' }}
+                                    >
+                                        {isSubmitting ? "Đang xử lý..." : "Xác nhận đặt hàng"}
+                                    </Button>
+                                </div>
                             </Card>
                         </Col>
+
                         <Col md={5}>
                             <Card className="border-0 shadow-sm p-4 sticky-top" style={{ borderRadius: '30px', top: '30px' }}>
-                                <h3 className="fw-bold mb-4" style={{ color: '#2F3E46' }}>Order Summary</h3>
+                                <h3 className="fw-bold mb-4" style={{ color: '#2F3E46' }}>Tóm tắt đơn hàng</h3>
 
                                 <div className="mb-3 overflow-auto" style={{ maxHeight: '400px' }}>
                                     {cart?.cartItems?.map(item => (
                                         <div key={item.cartItemId} className="d-flex align-items-center mb-4">
                                             <div className="bg-light rounded-4 p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '80px', height: '80px' }}>
-                                                <img src={`http://localhost:8080${item.imageUrl}`} fluid className="rounded-3"
+                                                <Image src={item.imageUrl} fluid className="rounded-3"
                                                     style={{ width: '65px', height: '70px', objectFit: 'contain' }}
                                                 />
                                             </div>
                                             <div className="flex-grow-1">
                                                 <h6 className="fw-bold mb-1 text-truncate" style={{ maxWidth: '150px' }}>{item.productName}</h6>
-                                                <div className="text-success small fw-bold mb-2">Quantity: {item.quantity}</div>
+                                                <div className="text-success small fw-bold mb-2">Số lượng: {item.quantity}</div>
                                                 <div className="fw-bold">{(item.price).toLocaleString('vi-VN')}đ</div>
                                             </div>
                                         </div>
@@ -199,26 +216,26 @@ export default function CheckOut() {
 
                                 <div className="fs-5">
                                     <div className="d-flex justify-content-between mb-3">
-                                        <span className="text-muted">SubTotal</span>
+                                        <span className="text-muted">Tạm tính</span>
                                         <span className="fw-bold">{subTotal.toLocaleString('vi-VN')}đ</span>
                                     </div>
                                     <div className="d-flex justify-content-between mb-3">
-                                        <span className="text-muted">Shipping</span>
+                                        <span className="text-muted">Phí vận chuyển</span>
                                         <span className="fw-bold">{SHIPPING_FEE.toLocaleString('vi-VN')}đ</span>
                                     </div>
                                 </div>
 
                                 <div className="d-flex justify-content-between align-items-center pt-3 border-top mb-4">
-                                    <span className="h3 fw-bold mb-0">Total</span>
+                                    <span className="h3 fw-bold mb-0">Tổng cộng</span>
                                     <span className="h2 fw-bold mb-0" style={{ color: '#2f855aff' }}>{TOTAL_FEE.toLocaleString('vi-VN')}đ</span>
                                 </div>
 
                                 <div className="p-4 rounded-4" style={{ backgroundColor: '#f0fff4', border: '1px dashed #2f855aff' }}>
                                     <div className="d-flex align-items-center text-success mb-2 small">
-                                        <span className="me-2">🛡️</span> Secure checkout
+                                        <span className="me-2">🛡️</span> Thanh toán bảo mật
                                     </div>
                                     <div className="d-flex align-items-center text-success small">
-                                        <span className="me-2">🚚</span> Fast delivery within 2-3 days
+                                        <span className="me-2">🚚</span> Giao hàng nhanh từ 2-3 ngày
                                     </div>
                                 </div>
                             </Card>

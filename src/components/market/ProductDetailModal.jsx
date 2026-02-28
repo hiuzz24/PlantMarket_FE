@@ -39,6 +39,7 @@ export default function ProductDetailModal({ show, onHide, product }) {
             const res = await cartApi.addToCart(dataSend);
             toast.success(res?.message);
             setQuantity(1);
+            window.dispatchEvent(new Event("cartUpdated"));
         } catch (error) {
             console.log(error);
             toast.error(error.response?.message || 'Error when add to cart!');
@@ -63,7 +64,7 @@ export default function ProductDetailModal({ show, onHide, product }) {
                         <Col md={6} className="text-center rounded-5 p-5 d-flex align-items-center justify-content-center"
                             style={{ backgroundColor: '#F8FAF6', minHeight: '400px' }}>
                             <img
-                                src={`http://localhost:8080${product.imageUrl}`}
+                                src={`${product.imageUrl}`}
                                 alt={product.name}
                                 style={{ width: '85%', height: 'auto', objectFit: 'contain' }}
                             />

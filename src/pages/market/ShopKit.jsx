@@ -116,16 +116,15 @@ export default function ShopKit() {
 
                 <Col md={9}>
                     <div className="p-4 bg-white rounded-5 shadow-sm min-vh-100">
-                        <h6 style={{color: '#62B895'}}>Showing {size} of {totalElements} products</h6>
+                        <h6 style={{ color: '#62B895' }}>Showing {size} of {totalElements} products</h6>
                         <Row className="justify-content-start">
                             {product.content
                                 ?.map(p => (
-                                    <Col md={4} key={p.productId} className="mb-4" style={{ cursor: 'pointer' }} onClick={() => handleShowProduct(p)}>
-                                        <ProductCard product={p} />
+                                    <Col md={4} key={p.productId} className="mb-4" style={{ cursor: 'pointer' }}>
+                                        <ProductCard product={p} onClick={() => handleShowProduct(p)}/>
                                     </Col>
                                 ))}
                         </Row>
-                        <ProductDetailModal onHide={() => setModalShow(false)} show={modalShow} product={selectedPro} />
                     </div>
                     <Pagination className="mt-5 justify-content-center">
                         <Pagination.Prev onClick={() => setPage(page - 1)} disabled={page === 0}>
@@ -136,6 +135,7 @@ export default function ShopKit() {
                     </Pagination>
                 </Col>
             </Row>
+            <ProductDetailModal onHide={() => setModalShow(false)} show={modalShow} product={selectedPro} />
         </Container>
     );
 }

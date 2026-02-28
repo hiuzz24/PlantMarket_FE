@@ -5,9 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './routers/Router.jsx';
 import { ToastContainer } from 'react-toastify';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <RouterProvider router={router}/>
     <ToastContainer
         position="top-right"
@@ -20,5 +22,6 @@ createRoot(document.getElementById('root')).render(
         pauseOnHover
         theme="light"
     />
+    </GoogleOAuthProvider>
   </StrictMode>,
 )
